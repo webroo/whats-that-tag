@@ -363,9 +363,8 @@
 		},
 
 		nextRound: function() {
-			// Disable interface elements
-			this.$('#guess input').val('').blur().attr('disabled', 'disabled');
-			this.$('#guess button').blur().attr('disabled', 'disabled');
+			this.disableUserInput();
+			this.$('#guess input').val(''); // Clear input text
 			this.loaderView.show();
 			this.feedbackView.hide();
 			this.imageRevealerView.hideAll();
@@ -389,9 +388,9 @@
 		startRound: function() {
 			this.loaderView.hide();
 
-			// Enable interface elements
-			this.$('#guess input').val('').removeAttr('disabled').focus().select();
+			// Enable user input
 			this.$('#guess button').removeAttr('disabled');
+			this.$('#guess input').val('').removeAttr('disabled').focus().select();
 			this.$('#round .points').html(this.currentRoundIndex + 1);
 			_.delay(_.bind(this.feedbackView.showGo, this.feedbackView), 250);
 
@@ -410,7 +409,7 @@
 					this.currentScore += score;
 					this.feedbackView.showCorrect();
 					this.imageRevealerView.showRemainingPoints();
-					this.$('#guess input').blur().attr('disabled', 'disabled');
+					this.disableUserInput();
 					_.delay(_.bind(this.scoreView.updateScore, this.scoreView), 900, previousScore, this.currentScore);
 
 					_.delay(_.bind(this.nextRound, this), 2500);
@@ -430,10 +429,16 @@
 						this.imageRevealerView.showNextImage();
 					} else {
 						this.feedbackView.showGameOver(this.currentRound.get('correctTag'));
+						this.disableUserInput();
 						_.delay(_.bind(this.nextRound, this), 2000);
 					}
 				}
 			}
+		},
+
+		disableUserInput: function() {
+			this.$('#guess input').blur().attr('disabled', 'disabled');
+			this.$('#guess button').blur().attr('disabled', 'disabled');
 		},
 
 		events: {
@@ -448,7 +453,7 @@
 		},
 
 		onSkipRoundButtonClick: function(event) {
-			this.$('#guess input').blur().attr('disabled', 'disabled');
+			this.disableUserInput();
 			this.feedbackView.showSkip(this.currentRound.get('correctTag'));
 			this.imageRevealerView.showRemainingImages();
 			_.delay(_.bind(this.nextRound, this), 2000);

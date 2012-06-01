@@ -195,6 +195,12 @@ header {
 		&:hover, &:active {
 			color: #de4491;
 		}
+
+		// Disable hover styles when the button is disabled
+		&[disabled]:hover {
+			border: 2px solid #CCC;
+			color: #777;
+		}
 	}
 }
 
