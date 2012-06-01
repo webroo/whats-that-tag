@@ -73,7 +73,7 @@ td { vertical-align: top; }
 
 @default-font: 'Anton', Impact, sans-serif;
 
-@gameAreaTop: 120px;
+@gameAreaTop: 130px;
 @imageSize: 125px;
 
 body {
@@ -90,243 +90,217 @@ body {
 	position: relative;
 	width: 825px;
 	margin: auto;
-	margin-top: 50px;
+	margin-top: 40px;
 	text-transform: uppercase;
+}
 
-	header {
+header {
+	text-align: center;
+
+	.skew(0, -5deg);
+
+	span:nth-child(1) {
+		font-size: 72px;
+	}
+	span:nth-child(2) {
+		font-size: 40px;
+		border-top: 2px solid #333;
+		border-bottom: 2px solid #333;
+		vertical-align: top;
+		margin: 22px 10px 0 10px;
+		letter-spacing: 2px;
+		display: inline-block;
+	}
+	span:nth-child(3) {
+		font-size: 72px;
+	}
+}
+
+.title {
+	font-size: 42px;
+}
+
+.points {
+	font-size: 42px;
+	color: #de4491;	
+}
+
+#round {
+	position: absolute;
+	top: @gameAreaTop;
+	left: 0;
+	width: @imageSize;
+	text-align: center;
+}
+
+#score {
+	position: absolute;
+	top: @gameAreaTop;
+	right: 0;
+	width: @imageSize;
+	text-align: center;
+}
+
+#round-points {
+	color: #666;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#instruction {
+	text-transform: uppercase;
+	text-align: center;
+	position: absolute;
+	top: @gameAreaTop + 18px;
+	width: 100%;
+}
+
+#guess {
+	position: absolute;
+	top: @gameAreaTop + 70px;
+	left: 290px;
+
+	input {
+		width: 220px;
+		padding: 4px;
+		font-size: 22px;
+		margin-right: 15px;
 		text-align: center;
-		-webkit-transform: skewY(-5deg);
-		-moz-transform: skewY(-5deg);
-		-ms-transform: skewY(-5deg);
-		-o-transform: skewY(-5deg);
-		transform: skewY(-5deg);
+		color: #333;
+		border: 2px solid #AAA;
+		.box-shadow(inset 2px 2px 8px #CCC);
+		outline: none;
 
-		span:nth-child(1) {
-			font-size: 72px;
-		}
-		span:nth-child(2) {
-			font-size: 40px;
-			border-top: 2px solid #333;
-			border-bottom: 2px solid #333;
-			vertical-align: top;
-			margin: 22px 10px 0 10px;
-			letter-spacing: 2px;
-			display: inline-block;
-		}
-		span:nth-child(3) {
-			font-size: 72px;
+		&:focus {
+			border: 2px solid #de4491;
 		}
 	}
 
-	.title {
-		font-size: 42px;
-	}
-
-	.points {
-		font-size: 42px;
-		color: #de4491;	
-	}
-
-	#round {
-		position: absolute;
-		top: @gameAreaTop;
-		left: 0;
-		width: @imageSize;
-		text-align: center;
-	}
-
-	#score {
-		position: absolute;
-		top: @gameAreaTop;
-		right: 0;
-		width: @imageSize;
-		text-align: center;
-
-		.plus-points {
-			color: #666;
-			font-weight: bold;
-			font-size: 20px;
-		}
-	}
-
-	#guess {
-		position: absolute;
-		top: @gameAreaTop + 70px;
-		left: 290px;
-
-		input {
-			width: 220px;
-			padding: 4px;
-			font-size: 22px;
-			margin-right: 15px;
-			text-align: center;
-			color: #333;
-			border: 2px solid #AAA;
-			.box-shadow(inset 2px 2px 8px #CCC);
-			outline: none;
-
-			&:focus {
-				border: 2px solid #de4491;
-			}
-		}
-
-		button {
-			background: none;
-			border: none;
-			font-size: 17px;
-			color: #777;
-			font-family: @default-font;
-			text-transform: uppercase;
-			border: 2px solid #CCC;
-			outline: none;
-			padding: 0 8px;
-
-			&:focus {
-				border: 2px solid #de4491;
-			}
-		}
-	}
-
-	#image-revealer {
-		position: absolute;
-		top: @gameAreaTop + 155px;
-
-		.image {
-			float: left;
-			position: relative;
-			width: @imageSize;
-			height: @imageSize;
-			margin-right: 15px;
-			margin-bottom: 15px;
-
-			-webkit-perspective: 750px;
-			-moz-perspective: 750px;
-			-ms-perspective: 750px;
-			-o-perspective: 750px;
-			perspective: 750px;
-
-			&:last-child {
-				margin-right: 0;
-			}
-
-			.card {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-
-				-webkit-transition: -webkit-transform 0.6s;
-				-moz-transition: -moz-transform 0.6s;
-				-ms-transition: -ms-transform 0.6s;
-				-o-transition: -o-transform 0.6s;
-				transition: transform 0.6s;
-
-				-webkit-transform-style: preserve-3d;
-				-moz-transform-style: preserve-3d;
-				-ms-transform-style: preserve-3d;
-				-o-transform-style: preserve-3d;
-				transform-style: preserve-3d;
-
-				&.flipped {
-					-webkit-transform: rotateX(-180deg);
-					-moz-transform: rotateX(-180deg);
-					-ms-transform: rotateX(-180deg);
-					-o-transform: rotateX(-180deg);
-					transform: rotateX(-180deg);
-				}
-
-				.front {
-					position: absolute;
-					width: @imageSize - 2px;
-					height: @imageSize - 2px;
-					background-color: rgba(0,0,0,0.1);
-					border: dashed 1px #AAA;
-
-					-webkit-backface-visibility: hidden;
-					-moz-backface-visibility: hidden;
-					-ms-backface-visibility: hidden;
-					-o-backface-visibility: hidden;
-					backface-visibility: hidden;
-				}
-
-				.back {
-					position: absolute;
-					width: @imageSize;
-					height: @imageSize;
-
-					-webkit-backface-visibility: hidden;
-					-moz-backface-visibility: hidden;
-					-ms-backface-visibility: hidden;
-					-o-backface-visibility: hidden;
-					backface-visibility: hidden;
-
-					-webkit-transform: rotateX(-180deg);
-					-moz-transform: rotateX(-180deg);
-					-ms-transform: rotateX(-180deg);
-					-o-transform: rotateX(-180deg);
-					transform: rotateX(-180deg);
-
-					.image-holder {
-						position: absolute;
-						img {
-							display: block;
-							width: @imageSize;
-							height: @imageSize;
-						}
-					}
-
-					.image-points {
-						position: absolute;
-						top: @imageSize - 23px;
-						width: @imageSize;
-						height: 23px;
-						background-color: #DE4491;
-						color: white;
-						font-weight: bold;
-						text-align: center;
-					}
-				}
-			}
-		}
-	}
-
-
-	#feedback {
-		position: absolute;
-		top: @gameAreaTop + 320px;
-		width: 100%;
-		height: 60px;
-		text-align: center;
-
-		span {
-			font-size: 40px;
-			font-weight: bold;
-		}
-	}
-
-	#loader {
-		position: absolute;
-		width: 100%;
-		height: 40px;
-		top: @gameAreaTop + 320px;
+	button {
+		background: none;
+		border: none;
+		font-size: 17px;
+		color: #777;
+		font-family: @default-font;
 		text-transform: uppercase;
-		text-align: center;
+		border: 2px solid #CCC;
+		outline: none;
+		padding: 0 8px;
+		display: inline-block;
 
-		span {
-			display: block;
-			font-size: 40px;
-			font-weight: bold;
+		&:focus, &:hover {
+			border: 2px solid #de4491;
+		}
+
+		&:hover, &:active {
+			color: #de4491;
+		}
+	}
+}
+
+input::-moz-focus-inner {
+	padding: 0;
+}
+
+#image-revealer {
+	position: absolute;
+	top: @gameAreaTop + 155px;
+
+	.image {
+		float: left;
+		position: relative;
+		width: @imageSize;
+		height: @imageSize;
+		margin-right: 15px;
+		margin-bottom: 15px;
+
+		.perspective(750px);
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		.card {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+
+			.transition(all 0.6s);
+			.transform-style(preserve-3d);
+
+			&.flipped {
+				.transform(rotateX(-180deg));
+			}
+
+			.front {
+				position: absolute;
+				width: @imageSize - 2px;
+				height: @imageSize - 2px;
+				background-color: rgba(0,0,0,0.1);
+				border: dashed 1px #AAA;
+
+				.backface-visibility(hidden);
+			}
+
+			.back {
+				position: absolute;
+				width: @imageSize;
+				height: @imageSize;
+
+				.backface-visibility(hidden);
+				.transform(rotateX(-180deg));
+
+				.image-holder {
+					position: absolute;
+					img {
+						display: block;
+						width: @imageSize;
+						height: @imageSize;
+					}
+				}
+
+				.image-points {
+					position: absolute;
+					top: @imageSize - 23px;
+					width: @imageSize;
+					height: 23px;
+					background-color: #DE4491;
+					color: white;
+					font-weight: bold;
+					text-align: center;
+				}
+			}
 		}
 	}
 }
 
 
-#tag-dump {
+#feedback {
 	position: absolute;
-	right: 0;
-	top: 0;
-	padding: 10px;
-	font-size: 13px;
-	background-color: #EEE;
+	top: @gameAreaTop + 320px;
+	width: 100%;
+	height: 60px;
+	text-align: center;
+
+	span {
+		font-size: 40px;
+		font-weight: bold;
+	}
+}
+
+#loader {
+	position: absolute;
+	width: 100%;
+	height: 40px;
+	top: @gameAreaTop + 320px;
+	text-transform: uppercase;
+	text-align: center;
+
+	span {
+		display: block;
+		font-size: 40px;
+		font-weight: bold;
+	}
 }
 
 // ================================================================================================

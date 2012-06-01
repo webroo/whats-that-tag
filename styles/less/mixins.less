@@ -205,12 +205,12 @@
 }
 
 // Transitions
-.transition(@transition) {
-  -webkit-transition: @transition;
-     -moz-transition: @transition;
-      -ms-transition: @transition;
-       -o-transition: @transition;
-          transition: @transition;
+.transition(...) {
+  -webkit-transition: @arguments;
+     -moz-transition: @arguments;
+      -ms-transition: @arguments;
+       -o-transition: @arguments;
+          transition: @arguments;
 }
 
 // Transformations
@@ -248,6 +248,27 @@
       -ms-transform: translate(@x, @y, @z);
        -o-transform: translate(@x, @y, @z);
           transform: translate(@x, @y, @z);
+}
+.perspective(@perspective) {
+  -webkit-perspective: @perspective;
+     -moz-perspective: @perspective;
+      -ms-perspective: @perspective;
+       -o-perspective: @perspective;
+          perspective: @perspective;
+}
+.transform-style(@style) {
+  -webkit-transform-style: @style;
+     -moz-transform-style: @style;
+      -ms-transform-style: @style;
+       -o-transform-style: @style;
+          transform-style: @style;
+}
+.transform(@transform) {
+  -webkit-transform: @transform;
+     -moz-transform: @transform;
+      -ms-transform: @transform;
+       -o-transform: @transform;
+          transform: @transform;
 }
 
 // Backface visibility

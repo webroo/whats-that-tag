@@ -323,15 +323,15 @@
 	var ScoreView = Backbone.View.extend({
 		initialize: function() {
 			this.pointsLabel = this.$('.points');
-			this.plusPointsLabel = this.$('.plus-points');
-			this.plusPointsLabel.hide();
+			this.roundPoints = this.$('#round-points');
+			this.roundPoints.hide();
 		},
 
 		updateScore: function(oldPoints, newPoints) {
 			var diffPoints = newPoints - oldPoints;
-			this.plusPointsLabel.html('+' + diffPoints + 'pts');
+			this.roundPoints.html('+' + diffPoints + 'pts');
 
-			this.plusPointsLabel.fadeIn().delay(1000).fadeOut();
+			this.roundPoints.fadeIn().delay(1000).fadeOut();
 
 			$({counter: oldPoints}).animate({counter: newPoints}, {duration: 1200, easing: 'linear', step: _.bind(function(value) {
 				this.pointsLabel.html(Math.round(value));
