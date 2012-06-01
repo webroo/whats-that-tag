@@ -286,11 +286,15 @@
 		},
 
 		hide: function() {
-			this.label.stop(true).fadeOut(80);
+			this.label.stop(true).animate({opacity: 0}, 80);
 		},
 
 		flashFeedback: function() {
-			this.label.stop(true).fadeOut(80).fadeIn(80).fadeOut(80).fadeIn(80);
+			this.label.stop(true)
+				.animate({opacity: 0}, 80)
+				.animate({opacity: 1}, 80)
+				.animate({opacity: 0}, 80)
+				.animate({opacity: 1}, 80);
 		}
 	});
 
