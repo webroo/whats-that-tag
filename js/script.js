@@ -393,8 +393,8 @@
 			this.loaderView.hide();
 
 			// Enable user input
-			this.$('#guess button').removeAttr('disabled');
-			this.$('#guess input').val('').removeAttr('disabled').focus().select();
+			this.$('#guess button').prop('disabled', false);
+			this.$('#guess input').val('').prop('disabled', false).focus().select();
 			this.$('#round .points').html(this.currentRoundIndex + 1);
 			_.delay(_.bind(this.feedbackView.showGo, this.feedbackView), 250);
 
@@ -430,6 +430,7 @@
 					if (this.imageRevealerView.hasNextImage()) {
 						// Reselect the text in the input box for another go
 						$('#guess input').focus().select();
+						$('#guess input').get(0).setSelectionRange(0, 9999); // mobile safari
 						this.imageRevealerView.showNextImage();
 					} else {
 						this.feedbackView.showGameOver(this.currentRound.get('correctTag'));
@@ -441,8 +442,8 @@
 		},
 
 		disableUserInput: function() {
-			this.$('#guess input').blur().attr('disabled', 'disabled');
-			this.$('#guess button').blur().attr('disabled', 'disabled');
+			this.$('#guess input').prop('disabled', true);
+			this.$('#guess button').blur().prop('disabled', true);
 		},
 
 		events: {

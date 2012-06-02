@@ -92,6 +92,10 @@ body {
 	margin: auto;
 	margin-top: 40px;
 	text-transform: uppercase;
+
+	// Prevents the big grey squares that mobile safari shows when touching elements
+	// This is caused by Backbone attaching delegated events in their View object
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 header {
@@ -173,6 +177,11 @@ header {
 
 		&:focus {
 			border: 2px solid #de4491;
+		}
+
+		// Show grey border when disabled
+		&[disabled] {
+			border: 2px solid #AAA;
 		}
 	}
 
