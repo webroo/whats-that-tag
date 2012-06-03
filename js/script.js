@@ -6,9 +6,10 @@
 		MAX_IMAGES = 6,
 		IMAGE_SIZE = 125;
 
-	var TAGS = ['husky', 'cat', 'squirrel', 'bike', 'car', 'pigeon', 'rose', 'gun', 'burger', 'sushi', 'coffee', 'snow', 'mouse', 'sand', 'dragon', 'mud', 'kangaroo', 'chips', 'canoe', 'helicopter'];
+	var TAGS = ['frog', 'dalmatian', 'lion', 'plane', 'husky', 'cat', 'squirrel', 'bike', 'pigeon', 'gun', 'burger', 'sushi', 'coffee', 'snow', 'mouse', 'dragon', 'mud', 'kangaroo', 'chips', 'canoe', 'helicopter', 'waterfall'];
+	TAGS = _.shuffle(TAGS);
 
-	var EXCLUDE_TAGS = new RegExp('insta|gram|photooftheday|picoftheday|followback');
+	var EXCLUDE_TAGS = new RegExp('photooftheday|picoftheday|follow|instafamous|instafashion|friend|girl|boy|bieber');
 
 
 	// Backbone base class with event functionality
@@ -117,10 +118,19 @@
 			// [{url: 'asdf', likes: 12}, {url: 'qwer', likes: 5}]
 			var likedImages = [];
 			this.mediaCollection.each(function(mediaItem) {
-				likedImages.push({
-					url: mediaItem.get('images').thumbnail.url,
-					likes: mediaItem.get('likes').count
+				var rejectItem = false;
+				_.each(mediaItem.get('tags'), function(tag) {
+					if (EXCLUDE_TAGS.test(tag)) {
+						rejectItem = true;
+					}
 				});
+				if (!rejectItem) {
+					likedImages.push({
+						// A recurring bug in the api means the url sometimes comes back on the wrong object
+						url: mediaItem.get('images').thumbnail.url || mediaItem.get('images').thumbnail,
+						likes: mediaItem.get('likes').count
+					});
+				}
 			}, this);
 
 			// Reduce down to the most liked images
@@ -350,8 +360,6 @@
 	var GameView = Backbone.View.extend({
 
 		initialize:function(){
-			TAGS = _.shuffle(TAGS);
-
 			this.gameRoundLoader = new GameRoundLoader();
 			this.gameRoundLoader.on('roundLoaded', this.onRoundLoaded, this);
 
